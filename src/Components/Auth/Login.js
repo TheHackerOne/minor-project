@@ -3,11 +3,10 @@ import { useHistory } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import './Login.css'
 import { AuthContext } from "./AuthContext";
-import { database } from "../../firebase";
-
+import Illustration from '../../Assets/illustration2.png';
 
 function Login() {
-    let { login } = useContext(AuthContext);
+    let { login, user } = useContext(AuthContext);
     let history = useHistory()
 
     const [info, setInfo] = useState({
@@ -27,7 +26,7 @@ function Login() {
             let userObj = await login(info.email, info.password);
             let userId = userObj.user.uid;
             console.log('user in login.js ', userId)
-            history.push("/profile");
+            history.push("/dashboard");
         } catch (error) {
             console.log(error)
             console.log("Login failed")
@@ -37,18 +36,25 @@ function Login() {
 
   return (
     <>
-      <div className='login-outer'>
+      {
+        user == null ? 
+        <div className='login-outer'>
         <div className='login-inner'>
-            <h1>Login Up Form</h1>
-            <form className='form-container' onSubmit={onSubmit}>
-                <label className='label' htmlFor="email">Email</label>
-                <TextField id="standard-basic" name='email' label="Standard" variant="standard" onChange={(e) =>handleChange(e)}/>
-                <label className='label' htmlFor="password">Password</label>
-                <TextField id="standard-basic" name='password' label="Standard" variant="standard" onChange={(e) =>handleChange(e)}/>
-                <button type='submit'>Submit</button>
-            </form>
+        <div className='login-innerLeft'>
+              <h1>Log In Form</h1>
+              <form className='form-container' onSubmit={onSubmit}>
+                  <TextField id="standard-basic" name='email' label="Email" variant="standard" onChange={(e) =>handleChange(e)}/>
+                  <TextField id="standard-basic" name='password' label="Password" variant="standard" onChange={(e) =>handleChange(e)}/>
+                  <button type='submit'>Submit</button>
+              </form>  
+            </div>  
+            <div className='login-innerRight'>
+              <img src={Illustration}/>
+            </div>     
         </div>
       </div>
+      :history.push('/dashboard')
+      }
     </>
   );
 }

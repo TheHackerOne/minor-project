@@ -5,10 +5,11 @@ import './Signup.css'
 import { AuthContext } from "./AuthContext";
 import { database } from "../../firebase";
 import {Link} from 'react-router-dom'
+import Illustration from '../../Assets/illustration.png'
 
 
 function Signup() {
-    let { signup } = useContext(AuthContext);
+    let { signup, user } = useContext(AuthContext);
     let history = useHistory()
 
     const [info, setInfo] = useState({
@@ -31,33 +32,39 @@ function Signup() {
         let user = {
             name: info.fullname,
             email: info.email,
-            uid: userId
+            uid: userId,
+            country:"",
+            pinCode:"",
+            city:"",
         }
         database.users.doc(userId).set({
             ...user
         })
-        history("/profile");
+        history.push("/dashboard");
     }
 
 
   return (
     <>
-      <div className='signup-outer'>
+      {
+        user == null ? <div className='signup-outer'>
         <div className='signup-inner'>
-            <h1>Sign Up Form</h1>
-            <form className='form-container' onSubmit={onSubmit}>
-                <label className='label' htmlFor="text">Full Name</label>
-                <TextField id="standard-basic" name='fullname' label="Standard" variant="standard" onChange={(e) =>handleChange(e)}/>
-                <label className='label' htmlFor="email">Email</label>
-                <TextField id="standard-basic" name='email' label="Standard" variant="standard" onChange={(e) =>handleChange(e)}/>
-                <label className='label' htmlFor="password">Password</label>
-                <TextField id="standard-basic" name='password' label="Standard" variant="standard" onChange={(e) =>handleChange(e)}/>
-                <button type='submit'>Submit</button>
-                <p>Already Signed up? <Link to='/login'>Login</Link></p>
-            </form>
-           
+            <div className='signup-innerLeft'>
+              <h1>Sign Up Form</h1>
+              <form className='form-container' onSubmit={onSubmit}>
+                  <TextField id="standard-basic" name='fullname' label="Full Name" variant="standard" onChange={(e) =>handleChange(e)}/>
+                  <TextField id="standard-basic" name='email' label="Email" variant="standard" onChange={(e) =>handleChange(e)}/>
+                  <TextField id="standard-basic" name='password' label="Password" variant="standard" onChange={(e) =>handleChange(e)}/>
+                  <button type='submit'>Submit</button>
+                  <p>Already Signed up? <Link to='/login'>Login</Link></p>
+              </form>  
+            </div>  
+            <div className='signup-innerRight'>
+              <img src={Illustration} className='signup-illustration'/>
+            </div>       
         </div>
-      </div>
+      </div>: history.push('/dashboard')
+      }
       
     </>
   );

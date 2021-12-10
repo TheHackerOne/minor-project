@@ -6,15 +6,20 @@ import Graph1 from '../../Assets/graph1.PNG'
 import Graph2 from '../../Assets/graph2.PNG'
 import Graph3 from '../../Assets/graph3.PNG'
 
+import ChairIcon from '@mui/icons-material/Chair';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import BungalowIcon from '@mui/icons-material/Bungalow';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+
 function RightContainerHome() {
     return (
         <div className='RCH-outer-container'>
             <div className='RCH-inner-container'>
                 <div className='RCH-card-container'>
-                    <Card/>
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                    <Card heading='Total Users' number='8' icon={ChairIcon} color='#36363C' per='24'/>
+                    <Card heading='Covid Cases' number='3423424' icon={QueryStatsIcon} color='#257EEA' per='32'/>
+                    <Card heading='Recovered' number='5345663' icon={BungalowIcon} color='#5EB562' per='12'/>
+                    <Card heading='Deaths' number='363354' icon={ThermostatIcon} color='#E83A75' per='15'/>
                 </div>
                 <div className='RCH-card2-container'>
                     <Card2 img={Graph1}/>

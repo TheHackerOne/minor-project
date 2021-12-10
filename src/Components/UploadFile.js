@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-import MovieIcon from '@material-ui/icons/Movie';
+import MovieIcon from '@mui/icons-material/Movie';
 import LinearProgress from '@mui/material/LinearProgress';
 import {v4 as uuidv4} from 'uuid'
 import { database,storage } from '../firebase';
@@ -44,21 +44,9 @@ function UploadFile(props) {
             }
             function fn3(){
                 uploadTask.snapshot.ref.getDownloadURL().then((url)=>{
-                    console.log(url);
-                    let obj = {
-                        likes:[],
-                        comments:[],
-                        pId:uid,
-                        pUrl:url,
-                        uName : props.user.fullname,
-                        uProfile : props.user.profileUrl,
-                        userId : props.user.userId,
-                        createdAt : database.getTimeStamp()
-                    }
-                    database.posts.add(obj).then(async(ref)=>{
-                        let res = await database.users.doc(props.user.userId).update({
-                            postIds : props.user.postIds!=null ? [...props.user.postIds,ref.id] : [ref.id]
-                        })
+                     console.log(url);
+                     let imgElement = document.getElementById('upload-img');
+                     imgElement.setAttribute('src',url)
                     }).then(()=>{
                         setLoading(false)
                     }).catch((err)=>{
@@ -68,29 +56,29 @@ function UploadFile(props) {
                         },2000)
                         setLoading(false)
                     })
-                })
-                // setLoading(false);
+                }
             }
-    }
 
     return (
         <div style={{marginTop:'5rem',marginBottom:'1rem'}}>
             {
                 error!=''?<Alert severity="error">{error}</Alert>:
-                <>
-                    <input type="file" accept="video/*" onChange={(e)=>handleChange(e.target.files[0])} id="upload-input" style={{display:'none'}} />
+                <div style={{ display:"flex", flexDirection:'column',justifyContent:'center', alignItems:'center' }}>
+                    <img src='' id='upload-img' style={{ width: '30rem', height: 'auto', display:'block' }}/>
+                    <input type="file" onChange={(e)=>handleChange(e.target.files[0])} id="upload-input" style={{display:'none'}} />
                     <label htmlFor="upload-input">
                         <Button
                             variant="outlined"
                             color="secondary"
                             component="span"
                             disabled={loading}
+                            style={{display:"block", width:"13rem", marginTop:'3rem'}}
                         >
-                        <MovieIcon/>&nbsp;Upload Video
+                        <MovieIcon/>&nbsp;Upload Image
                         </Button>
                     </label>
                     {loading && <LinearProgress color="secondary" style={{marginTop:'3%'}} />}
-                </>
+                </div>
             }
         </div>
     )

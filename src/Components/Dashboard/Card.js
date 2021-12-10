@@ -1,23 +1,22 @@
 import React from 'react'
 import './Card.css'
-import ChairIcon from '@mui/icons-material/Chair';
 
-function Card() {
+function Card({ heading, number, icon:Icon, color, per }) {
     return (
         <div className='card-container'>
             <div className='card-container--icon-container'>
                 <div className='card-container--icon-square'>
-                    <div className='card-container--icon-box'>
-                        <ChairIcon fontSize='medium' className='icon'/>
+                    <div className='card-container--icon-box' style={{backgroundColor: `${color}`}}>
+                        <Icon fontSize='medium' className='icon'/>
                     </div>
                 </div>
                 <div className='card-container--icon-text'>
-                    <p>Today's Money</p>
-                    <h2>$53k</h2>
+                    <p>{heading}</p>
+                    <h2>{number}</h2>
                 </div>
             </div>
 
-            <div className='card-container--text-container'><span>&nbsp;+55% </span>&nbsp;than last week</div>
+            <div className='card-container--text-container'><span>&nbsp;{per}% </span>&nbsp;than last week</div>
         </div>
     )
 }

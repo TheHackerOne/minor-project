@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState,useEffect } from 'react'
 import LeftContainerMenu from './LeftContainerMenu'
 import RightContainerHome from './RightContainerHome'
 import './Dashboard.css'
@@ -7,16 +7,14 @@ import { AuthContext } from '../Auth/AuthContext'
 import { useHistory } from 'react-router-dom'
 import Profile from '../Profile'
 import ML from '../ML'
-
-
+import Reports from '../Reports'
 
 function Dashboard() {
     let [focusMenuItem, setFocusMenuItem] = useState('Dashboard')
     const { user } = useContext(AuthContext)
     const history = useHistory()
-    const components = [<RightContainerHome/>, <Profile/>, <div/>, <div/>, <ML/>]
-    const listItems = ['Dashboard', 'Profile', 'Tables', 'Reports', 'ML Model']
-
+    const components = [<RightContainerHome/>, <Profile/>, <Reports/>, <ML/>]
+    const listItems = ['Dashboard', 'Profile', 'Reports', 'Upload Report']
     const onChangeHandler = (e) => {
         let name = e.target.getAttribute('name')
         if(name !== 'Dashboard' && name !== 'ML Model' && user == null){
@@ -25,7 +23,6 @@ function Dashboard() {
         }
         setFocusMenuItem(e.target.getAttribute('name'))
     }
-
     return (
         <>
             <div  className='dashboard-container'>

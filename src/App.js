@@ -7,6 +7,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Login from './Components/Auth/Login'
 import PrivateRoute from './Components/PrivateRoute'
 import AuthProvider, { AuthContext } from './Components/Auth/AuthContext';
+import ML from './Components/ML'
 
 function App() {
   return (

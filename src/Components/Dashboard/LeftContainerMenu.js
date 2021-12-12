@@ -10,7 +10,7 @@ import { AuthContext } from '../Auth/AuthContext';
 
 function LeftContainerMenu({ onChangeHandler, focusItem }) {    
 
-    const listItems = ['Dashboard', 'Profile', 'Tables', 'Reports', 'ML Model']
+    const listItems = ['Dashboard', 'Profile', 'Reports', 'Upload Report']
     const iconItems = [DashboardIcon, TableViewIcon, AccountBoxIcon, AssessmentIcon, PrecisionManufacturingIcon]
     const { user } = useContext(AuthContext)
 

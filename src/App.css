@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.reports-table {
+  width: 70vw;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  flex-flow: row;
+  justify-content: center;
+  /* margin-right: auto; */
+  margin-right: 5rem;
+  margin-top: 2rem;
+}
+
